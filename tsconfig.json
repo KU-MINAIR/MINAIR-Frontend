@@ -20,7 +20,13 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
+  "extends": "./tsconfig.paths.json",
   "include": [
-    "src"
+    "src",
+    "craco.config.js"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/node_modules/*"
   ]
 }
