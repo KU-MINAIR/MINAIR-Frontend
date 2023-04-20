@@ -1,6 +1,7 @@
 import React, { useState, ReactElement, useEffect } from "react";
 import styled from "styled-components";
 import TopBar from "@/components/TopBar";
+import SearchBar from "@/components/SearchBar";
 import Bg from "@/assets/sky.jpg";
 
 export default function Main(): ReactElement {
@@ -50,12 +51,12 @@ const Dimmed = styled.div`
 `;
 
 const SearchTab = styled.div`
-  width: 50vw;
+  width: 60vw;
   display: flex;
   flex-direction: column;
   position: absolute;
   top: 34%;
-  left: calc(50% - 25vw);
+  left: calc(50% - 30vw);
 `;
 
 const SearchText = styled.div`
@@ -64,11 +65,6 @@ const SearchText = styled.div`
   color: white;
   text-align: center;
   margin-bottom: 20px;
-`;
-
-const SearchBar = styled.div`
-  height: 90px;
-  background-color: blue;
 `;
 
 const Footer = styled.div`
