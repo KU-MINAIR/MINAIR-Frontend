@@ -39,5 +39,5 @@ const LogoText = styled.div`
   font-weight: bolder;
   color: #2e6ca4;
   text-align: center;
-  line-height: 2.7;
+  line-height: 0;
 `;

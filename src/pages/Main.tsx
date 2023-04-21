@@ -70,6 +70,6 @@ const SearchText = styled.div`
 const Footer = styled.div`
   height: max(20px, 20%);
   width: 100%;
-  background-color: #f5f5f7;
+  background-color: #f2f2f2;
   z-index: 3;
 `;
