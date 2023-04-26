@@ -51,12 +51,12 @@ const Dimmed = styled.div`
 `;
 
 const SearchTab = styled.div`
-  width: 60vw;
+  width: 70vw;
   display: flex;
   flex-direction: column;
   position: absolute;
   top: 34%;
-  left: calc(50% - 30vw);
+  left: calc(50% - 35vw);
 `;
 
 const SearchText = styled.div`
@@ -68,7 +68,7 @@ const SearchText = styled.div`
 `;
 
 const Footer = styled.div`
-  height: max(20px, 20%);
+  height: max(20px, 15%);
   width: 100%;
   background-color: #f2f2f2;
   z-index: 3;

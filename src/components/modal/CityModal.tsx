@@ -1,5 +1,6 @@
 import React, { useState, ReactElement, useEffect } from "react";
 import styled from "styled-components";
+import VerticalLine from "../VerticalLine";
 
 interface CityProps {
   setCity: Function;
@@ -82,11 +83,6 @@ export default function CityModal({ setCity }: CityProps): ReactElement {
   };
   return <ModalContainer>{renderCities()}</ModalContainer>;
 }
-const VerticalLine = styled.div`
-  width: 0px;
-  height: 12px;
-  border-left: 1px solid #ebeef0;
-`;
 
 const CityWrapper = styled.div`
   display: flex;
@@ -98,8 +94,8 @@ const CityWrapper = styled.div`
     background-color: #ebeef0;
   }
   &:first-child {
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
   }
 `;
 

@@ -26,7 +26,7 @@ export default function Modal({
 const ModalContainer = styled.div``;
 const ModalBox = styled.div<ModalProps>`
   background-color: white;
-  border-radius: 4px;
+  border-radius: 10px;
   width: ${(props) => props.width};
   height: ${(props) => props.height};
   position: absolute;
@@ -38,4 +38,5 @@ const ModalBox = styled.div<ModalProps>`
   bottom: ${(props) => props.position[2]};
   left: ${(props) => props.position[3]};
   z-index: 2;
+  transform: translate(0, 0);
 `;
