@@ -1,11 +1,16 @@
 import styled from "styled-components";
 
-export default function VerticalLine() {
-  return <Vertical></Vertical>;
+interface VerticalLineProps {
+  height: string;
+  color: string;
 }
 
-const Vertical = styled.div`
+export default function VerticalLine({ height, color }: VerticalLineProps) {
+  return <Vertical height={height} color={color}></Vertical>;
+}
+
+const Vertical = styled.div<VerticalLineProps>`
+  height: ${(props) => props.height};
   width: 0px;
-  height: 50%;
-  border-left: 1px solid #ebeef0;
+  border-left: 1px solid ${(props) => props.color};
 `;

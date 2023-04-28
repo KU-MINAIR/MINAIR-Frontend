@@ -66,14 +66,14 @@ export default function CityModal({ setCity }: CityProps): ReactElement {
           return (
             <CityWrapper
               onClick={(e2) => {
-                setCity(e.airportEng);
+                setCity(e.city);
               }}
             >
               <CityName>
-                {e.city}, {e.country}
+                {e.country}, {e.city}
               </CityName>
               <AirportName>{e.airportEng}</AirportName>
-              <VerticalLine></VerticalLine>
+              <VerticalLine height={"50%"} color={"#ebeef0"}></VerticalLine>
               <AirportName>{e.airportKor}</AirportName>
             </CityWrapper>
           );

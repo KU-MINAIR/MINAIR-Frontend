@@ -5,16 +5,26 @@ import Modal from "./modal/Modal";
 import DimmedLayer from "./modal/DimmedLayer";
 import CityModal from "./modal/CityModal";
 import DateModal from "./modal/DateModal";
+import CountModal from "./modal/CountModal";
 import VerticalLine from "@/components/VerticalLine";
+import { useNavigate } from "react-router-dom";
 
-export default function SearchBar(): ReactElement {
+interface SearchBarProps {
+  height: string;
+}
+
+export default function SearchBar({ height }: SearchBarProps): ReactElement {
+  let navigate = useNavigate();
+
   const [departure, setDeparture] = useState("선택");
   const [destination, setDestination] = useState("선택");
   const [startDate, setStartDate] = useState("");
-  const [clickStartDate, setClickStartDate] = useState(false);
   const [endDate, setEndDate] = useState("");
-  const [day, setDay] = useState();
-  const [people, setPeople] = useState();
+  const [day, setDay] = useState("선택");
+  const [people, setPeople] = useState("선택");
+
+  const [clickStartDate, setClickStartDate] = useState(false);
+  const [clickCount, setClickCount] = useState(false);
 
   const [departureModal, setDepartureModal] = useState(false);
   const [destinationModal, setDestinationModal] = useState(false);
@@ -39,6 +49,16 @@ export default function SearchBar(): ReactElement {
     setClickStartDate(false);
   };
 
+  const setDayFunc = (day: number) => {
+    setDay(day.toString() + "일");
+    setClickCount(true);
+  };
+
+  const setPeopleFunc = (people: number) => {
+    setPeople(people.toString() + "명");
+    setClickCount(true);
+  };
+
   const handleDepartureModal = () => {
     setDepartureModal(!departureModal);
   };
@@ -53,9 +73,15 @@ export default function SearchBar(): ReactElement {
     setDateModal(!dateModal);
   };
   const handleDayModal = () => {
+    if (clickCount) {
+      return;
+    }
     setDayModal(!dayModal);
   };
   const handlePeopleModal = () => {
+    if (clickCount) {
+      return;
+    }
     setPeopleModal(!peopleModal);
   };
   const handleAllModal = () => {
@@ -65,10 +91,11 @@ export default function SearchBar(): ReactElement {
     setDayModal(false);
     setPeopleModal(false);
     setClickStartDate(false);
+    setClickCount(false);
   };
 
   return (
-    <Wrapper>
+    <Wrapper height={height}>
       <City onClick={handleDepartureModal}>
         <ContentTitle>출발지</ContentTitle>
         <Content>{departure}</Content>
@@ -85,7 +112,7 @@ export default function SearchBar(): ReactElement {
           </>
         )}
       </City>
-      <VerticalLine />
+      <VerticalLine height={"50%"} color={"#ebeef0"} />
       <City onClick={handleDestinationModal}>
         <ContentTitle>도착지</ContentTitle>
         <Content>{destination}</Content>
@@ -102,7 +129,7 @@ export default function SearchBar(): ReactElement {
           </>
         )}
       </City>
-      <VerticalLine />
+      <VerticalLine height={"50%"} color={"#ebeef0"} />
       <Date onClick={handleDateModal}>
         <ContentTitle>기간</ContentTitle>
         <Content>
@@ -126,50 +153,46 @@ export default function SearchBar(): ReactElement {
           </>
         )}
       </Date>
-      <VerticalLine />
+      <VerticalLine height={"50%"} color={"#ebeef0"} />
       <Count onClick={handleDayModal}>
         <ContentTitle>여행 일수</ContentTitle>
         <Content>{day}</Content>
         {dayModal && (
           <>
             <DimmedLayer onClick={handleAllModal}></DimmedLayer>
-            <Modal
-              width={"250px"}
-              height={"200px"}
-              position={["105%", "0", "", ""]}
-            >
-              <></>
+            <Modal width={""} height={""} position={["105%", "", "", ""]}>
+              <CountModal setCount={setDayFunc}></CountModal>
             </Modal>
           </>
         )}
       </Count>
-      <VerticalLine />
+      <VerticalLine height={"50%"} color={"#ebeef0"} />
       <Count onClick={handlePeopleModal}>
         <ContentTitle>인원</ContentTitle>
         <Content>{people}</Content>
         {peopleModal && (
           <>
             <DimmedLayer onClick={handleAllModal}></DimmedLayer>
-            <Modal
-              width={"250px"}
-              height={"200px"}
-              position={["105%", "0", "", ""]}
-            >
-              <></>
+            <Modal width={""} height={""} position={["105%", "0", "", ""]}>
+              <CountModal setCount={setPeopleFunc}></CountModal>
             </Modal>
           </>
         )}
       </Count>
-      <SearchButton></SearchButton>
+      <SearchButton
+        onClick={() => {
+          navigate(`/flights?departure=${departure}`);
+        }}
+      />
     </Wrapper>
   );
 }
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<SearchBarProps>`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  height: min(8vw, 9vh);
+  height: ${(props) => props.height};
   width: 100%;
   background-color: white;
   border-radius: 30px;
@@ -183,23 +206,27 @@ const City = styled.div`
   flex-direction: column;
   justify-content: center;
   cursor: pointer;
+  padding-left: 10px;
 `;
 
 const Date = styled.div`
-  width: 40%;
+  width: 30%;
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   cursor: pointer;
+  padding-left: 10px;
 `;
 
 const Count = styled.div`
+  width: 14%;
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   cursor: pointer;
+  padding-left: 10px;
 `;
 
 const ContentTitle = styled.div`
@@ -223,4 +250,5 @@ const SearchButton = styled.button`
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+  margin-right: 10px;
 `;

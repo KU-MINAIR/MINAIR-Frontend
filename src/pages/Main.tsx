@@ -13,7 +13,7 @@ export default function Main(): ReactElement {
         <Dimmed></Dimmed>
         <SearchTab>
           <SearchText>Travel on the cheapest day!</SearchText>
-          <SearchBar></SearchBar>
+          <SearchBar height={"min(8vw, 9vh)"}></SearchBar>
         </SearchTab>
       </MainBody>
       <Footer />

@@ -12,7 +12,8 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Main />}></Route>
-          <Route path="/search" element={<Search />}></Route>
+          <Route path="*" element={<div>404 Not Found Page</div>}></Route>
+          <Route path="/flights" element={<Search />}></Route>
         </Routes>
       </BrowserRouter>
     </Wrapper>
