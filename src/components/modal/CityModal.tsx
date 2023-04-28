@@ -89,7 +89,6 @@ const CityWrapper = styled.div`
   align-items: center;
   border-bottom: 1px #ebeef0 solid;
   padding: 2px;
-
   &:hover {
     background-color: #ebeef0;
   }

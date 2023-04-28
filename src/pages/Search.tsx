@@ -5,13 +5,13 @@ import SearchBar from "@/components/SearchBar";
 import VerticalLine from "@/components/VerticalLine";
 
 export default function Search(): ReactElement {
-  const TicketArr = [{}, {}, {}, {}, {}, {}, {}, {}];
-  const renderCities = () => {
+  const TicketArr = [{}, {}, {}, {}, {}, {}, {}, {}, {}];
+  const renderTickets = () => {
     return (
       <>
-        {TicketArr.map((e) => {
+        {TicketArr.map((e, idx) => {
           // return <div>{e.country}</div>;
-          return <TicketWrapper onClick={(e2) => {}}></TicketWrapper>;
+          return <TicketWrapper onClick={(e2) => {}}>aa</TicketWrapper>;
         })}
       </>
     );
@@ -29,12 +29,12 @@ export default function Search(): ReactElement {
       <BodayWrapper>
         <Section>
           <SectionTitle>최저가</SectionTitle>
-          <ListContainer>{renderCities()}</ListContainer>
+          <ListContainer>{renderTickets()}</ListContainer>
         </Section>
         <VerticalLine height={"calc(90vh - 50px)"} color={"#d9d9d9"} />
         <Section>
           <SectionTitle>유사 여행지</SectionTitle>
-          <ListContainer>{renderCities()}</ListContainer>
+          {renderTickets()}
         </Section>
       </BodayWrapper>
     </>
@@ -66,6 +66,8 @@ const Section = styled.div`
   height: 100%;
   width: calc(100% - 0.5px);
   padding: 40px;
+  display: flex;
+  flex-direction: column;
 `;
 
 const SectionTitle = styled.div`
@@ -77,10 +79,10 @@ const ListContainer = styled.div`
   margin-top: 20px;
   display: flex;
   flex-direction: column;
-  overflow-y: scroll;
-  overflow-x: hidden;
   width: 100%;
   height: 90%;
+  overflow-y: scroll;
+  overflow-x: hidden;
   &::-webkit-scrollbar {
     width: 6px;
     background-color: #edece9;
@@ -92,16 +94,16 @@ const ListContainer = styled.div`
 `;
 
 const TicketWrapper = styled.div`
-  height: 100px;
   display: flex;
-  align-items: center;
+  height: 200px;
+  width: 100%;
   background-color: white;
   filter: drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.25));
   backdrop-filter: blur(2px);
   border-radius: 10px;
   border: 1px solid #d9d9d9;
 
-  margin: 10px 0;
+  margin-bottom: 20px;
   &:hover {
     background-color: #ebeef0;
   }
