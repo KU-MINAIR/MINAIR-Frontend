@@ -51,12 +51,12 @@ const Dimmed = styled.div`
 `;
 
 const SearchTab = styled.div`
-  width: 70vw;
+  width: 80vw;
   display: flex;
   flex-direction: column;
   position: absolute;
   top: 34%;
-  left: calc(50% - 35vw);
+  left: calc(50% - 40vw);
 `;
 
 const SearchText = styled.div`

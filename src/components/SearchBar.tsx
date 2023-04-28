@@ -4,13 +4,15 @@ import SearchBtn from "@/assets/searchBtn.png";
 import Modal from "./modal/Modal";
 import DimmedLayer from "./modal/DimmedLayer";
 import CityModal from "./modal/CityModal";
+import DateModal from "./modal/DateModal";
 import VerticalLine from "@/components/VerticalLine";
 
 export default function SearchBar(): ReactElement {
   const [departure, setDeparture] = useState("선택");
   const [destination, setDestination] = useState("선택");
-  const [startDate, setStartDate] = useState();
-  const [endDate, setEndDate] = useState();
+  const [startDate, setStartDate] = useState("");
+  const [clickStartDate, setClickStartDate] = useState(false);
+  const [endDate, setEndDate] = useState("");
   const [day, setDay] = useState();
   const [people, setPeople] = useState();
 
@@ -23,37 +25,46 @@ export default function SearchBar(): ReactElement {
   const setDepartureFunc = (departure: string) => {
     setDeparture(departure);
   };
-
   const setDestinationFunc = (destination: string) => {
     setDestination(destination);
+  };
+  const setStartDateFunc = (startDate: string, endDate: string) => {
+    setStartDate(startDate);
+    setClickStartDate(true);
+  };
+
+  const setEndDateFunc = (endDate: string) => {
+    setEndDate(endDate);
+    setDateModal(false);
+    setClickStartDate(false);
   };
 
   const handleDepartureModal = () => {
     setDepartureModal(!departureModal);
   };
-
   const handleDestinationModal = () => {
     setDestinationModal(!destinationModal);
   };
-
   const handleDateModal = () => {
+    if (clickStartDate) {
+      return;
+    }
+    setClickStartDate(!clickStartDate);
     setDateModal(!dateModal);
   };
-
   const handleDayModal = () => {
     setDayModal(!dayModal);
   };
-
   const handlePeopleModal = () => {
     setPeopleModal(!peopleModal);
   };
-
   const handleAllModal = () => {
     setDepartureModal(false);
     setDestinationModal(false);
     setDateModal(false);
     setDayModal(false);
     setPeopleModal(false);
+    setClickStartDate(false);
   };
 
   return (
@@ -102,10 +113,15 @@ export default function SearchBar(): ReactElement {
             <DimmedLayer onClick={handleAllModal}></DimmedLayer>
             <Modal
               width={"100%"}
-              height={"250px"}
+              height={"0"}
               position={["105%", "0%", "", ""]}
             >
-              <></>
+              <DateModal
+                setStartDate={setStartDateFunc}
+                setEndDate={setEndDateFunc}
+                startDate={startDate}
+                endDate={endDate}
+              ></DateModal>
             </Modal>
           </>
         )}
@@ -161,29 +177,29 @@ const Wrapper = styled.div`
 `;
 
 const City = styled.div`
-  width: 16%;
+  width: 14%;
   height: 100%;
-  cursor: pointer;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  cursor: pointer;
 `;
 
 const Date = styled.div`
-  width: 20%;
+  width: 40%;
   height: 100%;
-  cursor: pointer;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  cursor: pointer;
 `;
 
 const Count = styled.div`
   height: 100%;
-  cursor: pointer;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  cursor: pointer;
 `;
 
 const ContentTitle = styled.div`
