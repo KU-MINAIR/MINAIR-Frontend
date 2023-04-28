@@ -7,6 +7,7 @@ import CityModal from "./modal/CityModal";
 import DateModal from "./modal/DateModal";
 import CountModal from "./modal/CountModal";
 import VerticalLine from "@/components/VerticalLine";
+import axios, { AxiosResponse } from "axios";
 import { useNavigate } from "react-router-dom";
 
 interface SearchBarProps {
@@ -22,6 +23,7 @@ export default function SearchBar({ height }: SearchBarProps): ReactElement {
   const [endDate, setEndDate] = useState("");
   const [day, setDay] = useState("선택");
   const [people, setPeople] = useState("선택");
+  const [cityArr, setCitiyArr] = useState([]);
 
   const [clickStartDate, setClickStartDate] = useState(false);
   const [clickCount, setClickCount] = useState(false);
@@ -93,6 +95,20 @@ export default function SearchBar({ height }: SearchBarProps): ReactElement {
     setClickStartDate(false);
     setClickCount(false);
   };
+  useEffect(() => {
+    axios
+      .get(`/api/cities`, {
+        withCredentials: true,
+        headers: {
+          "Content-Type": `application/json`,
+          "ngrok-skip-browser-warning": "69420",
+        },
+      })
+      .then((res) => {
+        setCitiyArr(res.data.data);
+      })
+      .catch((err) => console.log(err.code));
+  }, []);
 
   return (
     <Wrapper height={height}>
@@ -107,7 +123,10 @@ export default function SearchBar({ height }: SearchBarProps): ReactElement {
               height={"200px"}
               position={["105%", "", "", ""]}
             >
-              <CityModal setCity={setDepartureFunc}></CityModal>
+              <CityModal
+                cityArr={cityArr}
+                setCity={setDepartureFunc}
+              ></CityModal>
             </Modal>
           </>
         )}
@@ -124,7 +143,10 @@ export default function SearchBar({ height }: SearchBarProps): ReactElement {
               height={"200px"}
               position={["105%", "", "", ""]}
             >
-              <CityModal setCity={setDestinationFunc}></CityModal>
+              <CityModal
+                cityArr={cityArr}
+                setCity={setDestinationFunc}
+              ></CityModal>
             </Modal>
           </>
         )}
@@ -181,7 +203,30 @@ export default function SearchBar({ height }: SearchBarProps): ReactElement {
       </Count>
       <SearchButton
         onClick={() => {
-          navigate(`/flights?departure=${departure}`);
+          console.log(
+            `flyFrom=${departure}\nflyTo=${destination}\nstartDate=${startDate}\nendDate=${endDate}\nday=${parseInt(
+              day
+            )}\npeople=${parseInt(people)}`
+          );
+          axios
+            .get(
+              `/api/flights?flyFrom=${departure}&flyTo=${destination}&startDate=${startDate}&endDate=${endDate}&day=${parseInt(
+                day
+              )}&people=${parseInt(people)}`,
+              // `/api/flights?flyFrom=인천&flyTo=오키나와&startDate=25/06/2023&endDate=25/09/2023&people=1&day=5`,
+              // `/api/cities`,
+              {
+                withCredentials: true,
+                headers: {
+                  "Content-Type": `application/json`,
+                  "ngrok-skip-browser-warning": "69420",
+                },
+              }
+            )
+            .then((res) => {
+              console.log(res.data);
+            })
+            .catch((err) => console.log(err.code));
         }}
       />
     </Wrapper>

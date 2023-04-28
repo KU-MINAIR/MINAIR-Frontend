@@ -4,10 +4,14 @@ import VerticalLine from "../VerticalLine";
 
 interface CityProps {
   setCity: Function;
+  cityArr: any;
 }
 
-export default function CityModal({ setCity }: CityProps): ReactElement {
-  const cityArr = [
+export default function CityModal({
+  setCity,
+  cityArr,
+}: CityProps): ReactElement {
+  const cityArr2 = [
     {
       country: "대한민국",
       city: "인천",
@@ -61,23 +65,22 @@ export default function CityModal({ setCity }: CityProps): ReactElement {
   const renderCities = () => {
     return (
       <>
-        {cityArr.map((e) => {
-          // return <div>{e.country}</div>;
-          return (
-            <CityWrapper
-              onClick={(e2) => {
-                setCity(e.city);
-              }}
-            >
-              <CityName>
-                {e.country}, {e.city}
-              </CityName>
-              <AirportName>{e.airportEng}</AirportName>
-              <VerticalLine height={"50%"} color={"#ebeef0"}></VerticalLine>
-              <AirportName>{e.airportKor}</AirportName>
-            </CityWrapper>
-          );
-        })}
+        {cityArr &&
+          cityArr.map((e: any) => {
+            // return <div>{e.country}</div>;
+            return (
+              <CityWrapper
+                onClick={(e2) => {
+                  setCity(e.city);
+                }}
+              >
+                <CityName>{e.name}</CityName>
+                {/* <AirportName>{e.airportEng}</AirportName> */}
+                <VerticalLine height={"50%"} color={"#ebeef0"}></VerticalLine>
+                <AirportName>{e.airportCode}</AirportName>
+              </CityWrapper>
+            );
+          })}
       </>
     );
   };

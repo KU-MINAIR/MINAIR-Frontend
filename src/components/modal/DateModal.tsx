@@ -28,13 +28,13 @@ export default function DateModal({
 
   const dateFormat = (date: Date) => {
     return (
-      date.getFullYear() +
-      "." +
-      (date.getMonth() + 1 < 9
+      (date.getDate() <= 9 ? "0" + date.getDate() : date.getDate()) +
+      "/" +
+      (date.getMonth() + 1 <= 9
         ? "0" + (date.getMonth() + 1)
         : date.getMonth() + 1) +
-      "." +
-      (date.getDate() < 9 ? "0" + date.getDate() : date.getDate())
+      "/" +
+      date.getFullYear()
     );
   };
 
