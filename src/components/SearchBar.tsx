@@ -224,7 +224,12 @@ export default function SearchBar({ height }: SearchBarProps): ReactElement {
               }
             )
             .then((res) => {
-              console.log(res.data);
+              navigate(
+                `flights?flyFrom=${departure}&flyTo=${destination}&startDate=${startDate}&endDate=${endDate}&day=${parseInt(
+                  day
+                )}&people=${parseInt(people)}`,
+                { state: res.data.data }
+              );
             })
             .catch((err) => console.log(err.code));
         }}

@@ -37,6 +37,6 @@ const ModalBox = styled.div<ModalProps>`
   right: ${(props) => props.position[1]};
   bottom: ${(props) => props.position[2]};
   left: ${(props) => props.position[3]};
-  z-index: 3;
+  z-index: 10;
   transform: translate(0, 0);
 `;

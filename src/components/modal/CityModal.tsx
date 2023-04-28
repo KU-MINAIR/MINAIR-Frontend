@@ -71,11 +71,12 @@ export default function CityModal({
             return (
               <CityWrapper
                 onClick={(e2) => {
-                  setCity(e.city);
+                  setCity(e.name);
                 }}
               >
-                <CityName>{e.name}</CityName>
-                {/* <AirportName>{e.airportEng}</AirportName> */}
+                <CityName>
+                  {e.name}, {e.country}
+                </CityName>
                 <VerticalLine height={"50%"} color={"#ebeef0"}></VerticalLine>
                 <AirportName>{e.airportCode}</AirportName>
               </CityWrapper>
