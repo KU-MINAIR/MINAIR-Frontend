@@ -5,6 +5,18 @@ import SearchBar from "@/components/SearchBar";
 import VerticalLine from "@/components/VerticalLine";
 
 export default function Search(): ReactElement {
+  const TicketArr = [{}, {}, {}, {}, {}, {}, {}, {}];
+  const renderCities = () => {
+    return (
+      <>
+        {TicketArr.map((e) => {
+          // return <div>{e.country}</div>;
+          return <TicketWrapper onClick={(e2) => {}}></TicketWrapper>;
+        })}
+      </>
+    );
+  };
+
   return (
     <>
       <TopBar>
@@ -17,10 +29,12 @@ export default function Search(): ReactElement {
       <BodayWrapper>
         <Section>
           <SectionTitle>최저가</SectionTitle>
+          <ListContainer>{renderCities()}</ListContainer>
         </Section>
         <VerticalLine height={"calc(90vh - 50px)"} color={"#d9d9d9"} />
         <Section>
           <SectionTitle>유사 여행지</SectionTitle>
+          <ListContainer>{renderCities()}</ListContainer>
         </Section>
       </BodayWrapper>
     </>
@@ -57,4 +71,38 @@ const Section = styled.div`
 const SectionTitle = styled.div`
   font-size: 28px;
   font-weight: bold;
+`;
+
+const ListContainer = styled.div`
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  width: 100%;
+  height: 90%;
+  &::-webkit-scrollbar {
+    width: 6px;
+    background-color: #edece9;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #d3d1cb;
+    border-radius: 6px;
+  }
+`;
+
+const TicketWrapper = styled.div`
+  height: 100px;
+  display: flex;
+  align-items: center;
+  background-color: white;
+  filter: drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.25));
+  backdrop-filter: blur(2px);
+  border-radius: 10px;
+  border: 1px solid #d9d9d9;
+
+  margin: 10px 0;
+  &:hover {
+    background-color: #ebeef0;
+  }
 `;
