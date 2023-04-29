@@ -12,9 +12,26 @@ import { useNavigate } from "react-router-dom";
 
 interface SearchBarProps {
   height: string;
+  departureP: string;
+  destinationP: string;
+  startDateP: string;
+  endDateP: string;
+  dayP: string;
+  peopleP: string;
+}
+interface WidthProps {
+  height: string;
 }
 
-export default function SearchBar({ height }: SearchBarProps): ReactElement {
+export default function SearchBar({
+  height,
+  departureP,
+  destinationP,
+  startDateP,
+  endDateP,
+  dayP,
+  peopleP,
+}: SearchBarProps): ReactElement {
   let navigate = useNavigate();
 
   const [departure, setDeparture] = useState("선택");
@@ -95,6 +112,15 @@ export default function SearchBar({ height }: SearchBarProps): ReactElement {
     setClickStartDate(false);
     setClickCount(false);
   };
+
+  useEffect(() => {
+    setDeparture(departureP);
+    setDestination(destinationP);
+    setStartDate(startDateP);
+    setEndDate(endDateP);
+    setDay(dayP);
+    setPeople(peopleP);
+  }, []);
   useEffect(() => {
     axios
       .get(`/api/cities`, {
@@ -109,6 +135,21 @@ export default function SearchBar({ height }: SearchBarProps): ReactElement {
       })
       .catch((err) => console.log(err.code));
   }, []);
+
+  ////
+  const mockData = [
+    {
+      cityName: "인천",
+      countryName: "대한민국",
+      startDate: "2022-02-01",
+      endDate: "2022-02-03",
+      weather: {
+        lastestWeather: "맑음",
+        averageTemperature: "15",
+      },
+      price: "1515",
+    },
+  ];
 
   return (
     <Wrapper height={height}>
@@ -228,17 +269,49 @@ export default function SearchBar({ height }: SearchBarProps): ReactElement {
                 `flights?flyFrom=${departure}&flyTo=${destination}&startDate=${startDate}&endDate=${endDate}&day=${parseInt(
                   day
                 )}&people=${parseInt(people)}`,
-                { state: res.data.data }
+                {
+                  state: res.data.data,
+                  // setDeparture: setDepartureFunc,
+                  // setDestination: setDestinationFunc,
+                  // setStartDate: setStartDateFunc,
+                  // setEndDate: setEndDateFunc,
+                  // setDay: setDayFunc,
+                  // setPeople: setPeopleFunc,
+                  // departure,
+                  // destination,
+                  // startDate,
+                  // endDate,
+                  // day,
+                  // people,
+                }
               );
             })
-            .catch((err) => console.log(err.code));
+            .catch((err) => {
+              console.log(err.code);
+              navigate(
+                `flights?flyFrom=${departure}&flyTo=${destination}&startDate=${startDate}&endDate=${endDate}&day=${parseInt(
+                  day
+                )}&people=${parseInt(people)}`,
+                {
+                  state: {
+                    mockData,
+                    departure,
+                    destination,
+                    startDate,
+                    endDate,
+                    day,
+                    people,
+                  },
+                }
+              );
+            });
         }}
       />
     </Wrapper>
   );
 }
 
-const Wrapper = styled.div<SearchBarProps>`
+const Wrapper = styled.div<WidthProps>`
   display: flex;
   justify-content: space-around;
   align-items: center;

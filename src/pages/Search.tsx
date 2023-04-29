@@ -10,12 +10,14 @@ interface RouteState {
   state: any;
 }
 export default function Search(): ReactElement {
-  const ticketArr = (useLocation() as RouteState).state;
+  const state = (useLocation() as RouteState).state;
+  const ticketArr = state.mockData;
+  console.log(useLocation());
   const renderTickets = () => {
     return (
       <>
         {ticketArr &&
-          ticketArr.map((e: any, idx: number) => {
+          ticketArr?.map((e: any, idx: number) => {
             // return <div>{e.country}</div>;
             return (
               <TicketWrapper onClick={(e2) => {}}>
@@ -56,7 +58,15 @@ export default function Search(): ReactElement {
       <TopBar>
         <SearchBarWrapper>
           <SearchTab>
-            <SearchBar height={"50px"}></SearchBar>
+            <SearchBar
+              height={"50px"}
+              departureP={state.departure}
+              destinationP={state.destination}
+              startDateP={state.startDate}
+              endDateP={state.endDate}
+              dayP={state.day}
+              peopleP={state.people}
+            ></SearchBar>
           </SearchTab>
         </SearchBarWrapper>
       </TopBar>

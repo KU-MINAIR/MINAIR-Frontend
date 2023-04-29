@@ -13,7 +13,15 @@ export default function Main(): ReactElement {
         <Dimmed></Dimmed>
         <SearchTab>
           <SearchText>Travel on the cheapest day!</SearchText>
-          <SearchBar height={"min(8vw, 9vh)"}></SearchBar>
+          <SearchBar
+            height={"min(8vw, 9vh)"}
+            departureP={"선택"}
+            destinationP={"선택"}
+            startDateP={""}
+            endDateP={""}
+            dayP={"선택"}
+            peopleP={"선택"}
+          ></SearchBar>
         </SearchTab>
       </MainBody>
       <Footer />
