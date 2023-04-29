@@ -1,6 +1,19 @@
 import { createGlobalStyle } from 'styled-components';
+import {KoHoRegular} from "@/fonts/KoHo-Regular.ttf"
+import {OswaldVariableFont} from "@/fonts/Oswald-VariableFont_wght.ttf"
 
 const GlobalStyle = createGlobalStyle`
+
+@font-face {
+	font-family: "KoHo";
+	src: url(${KoHoRegular});
+}
+
+@font-face {
+	font-family: "Oswald";
+	src: url(${OswaldVariableFont});
+}
+
 *{
   box-sizing:border-box;
 }
