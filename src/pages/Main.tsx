@@ -3,6 +3,7 @@ import styled from "styled-components";
 import TopBar from "@/components/TopBar";
 import SearchBar from "@/components/SearchBar";
 import Bg from "@/assets/sky.jpg";
+import { DiAptana } from "react-icons/di";
 
 export default function Main(): ReactElement {
   return (
@@ -24,7 +25,13 @@ export default function Main(): ReactElement {
           ></SearchBar>
         </SearchTab>
       </MainBody>
-      <Footer />
+      <Footer>
+        <FooterLeft>
+          <div>설정 </div>
+          <DiAptana size="20" color="#000000" />
+        </FooterLeft>
+        <FooterRight>도움말</FooterRight>
+      </Footer>
     </Wrapper>
   );
 }
@@ -63,21 +70,35 @@ const SearchTab = styled.div`
   display: flex;
   flex-direction: column;
   position: absolute;
-  top: 34%;
+  top: 36%;
   left: calc(50% - 40vw);
 `;
 
 const SearchText = styled.div`
   z-index: 10;
-  font-size: 3.9vw;
+  font-size: 4.5vw;
   color: white;
   text-align: center;
   margin-bottom: 20px;
+  font-family: "KoHoRegular";
 `;
 
 const Footer = styled.div`
-  height: max(20px, 15%);
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+  background-color: rgba(0, 0, 0, 0.2);
   width: 100%;
-  background-color: #f2f2f2;
+  bottom: 0;
+  width: 100%;
   z-index: 3;
+  padding: 10px 20px;
+  font-size: 16px;
 `;
+
+const FooterLeft = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const FooterRight = styled.div``;

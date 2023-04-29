@@ -41,7 +41,6 @@ const Logo = styled.div`
   background-color: white;
   margin-left: 20px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   cursor: pointer;
 `;
@@ -51,9 +50,10 @@ const LogoImg = styled.div`
 `;
 
 const LogoText = styled.div`
-  font-size: 18px;
+  font-size: 20px;
   font-weight: bolder;
   color: #2e6ca4;
-  text-align: center;
   line-height: 0;
+  font-family: "Oswald";
+  margin-left: 6px;
 `;

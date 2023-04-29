@@ -1,12 +1,14 @@
 import { createGlobalStyle } from 'styled-components';
-import {KoHoRegular} from "@/fonts/KoHo-Regular.ttf"
-import {OswaldVariableFont} from "@/fonts/Oswald-VariableFont_wght.ttf"
+import KoHoRegular from "@/fonts/KoHo-Regular.ttf"
+import OswaldVariableFont from "@/fonts/Oswald-VariableFont_wght.ttf"
 
 const GlobalStyle = createGlobalStyle`
 
 @font-face {
-	font-family: "KoHo";
-	src: url(${KoHoRegular});
+	font-family: "KoHoRegular";
+	src: local('KoHoRegular'), local("KoHoRegular");
+	font-style: normal;
+	src: url(${KoHoRegular}) format('truetype');
 }
 
 @font-face {
