@@ -14,6 +14,7 @@ const DimmedPage = styled.div`
   justify-content: center;
   align-items: center;
   position: absolute;
+  top: 0;
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.2);

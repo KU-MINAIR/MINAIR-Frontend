@@ -2,6 +2,7 @@ import React, { useState, ReactElement, useEffect } from "react";
 import styled from "styled-components";
 import TopBar from "@/components/TopBar";
 import SearchBar from "@/components/SearchBar";
+import LoadingSpinner from "@/components/LoadingSpinner";
 import VerticalLine from "@/components/VerticalLine";
 import { useLocation } from "react-router-dom";
 import { WiDaySunny, WiCloudy, WiHail } from "react-icons/wi";
@@ -14,6 +15,7 @@ interface RouteState {
 export default function Search(): ReactElement {
   const state = (useLocation() as RouteState).state;
   const [similarTicketArr, setSimilarTicketArr] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     axios
       .get(
@@ -91,13 +93,13 @@ export default function Search(): ReactElement {
               endDateP={state.endDate}
               dayP={state.day}
               peopleP={state.people}
-              isLoading={undefined}
-              setIsLoading={undefined}
+              isLoading={isLoading}
+              setIsLoading={setIsLoading}
             ></SearchBar>
           </SearchTab>
         </SearchBarWrapper>
       </TopBar>
-      <BodayWrapper>
+      <BodyWrapper>
         <Section>
           <SectionTitle>최저가</SectionTitle>
           <ListContainer>{renderTickets(state.data)}</ListContainer>
@@ -107,7 +109,8 @@ export default function Search(): ReactElement {
           <SectionTitle>유사 여행지</SectionTitle>
           <ListContainer>{renderTickets(similarTicketArr)}</ListContainer>
         </Section>
-      </BodayWrapper>
+      </BodyWrapper>
+      {isLoading ? <LoadingSpinner /> : null}
     </>
   );
 }
@@ -127,7 +130,7 @@ const SearchTab = styled.div`
   z-index: 10;
 `;
 
-const BodayWrapper = styled.div`
+const BodyWrapper = styled.div`
   background-color: #f6f8fe;
   margin-top: 50px;
   height: calc(100vh - 50px);

@@ -10,7 +10,6 @@ import VerticalLine from "@/components/VerticalLine";
 import axios, { AxiosResponse } from "axios";
 import { useNavigate } from "react-router-dom";
 
-
 interface SearchBarProps {
   height: string;
   departureP: string;
@@ -274,7 +273,7 @@ export default function SearchBar({
               setIsLoading && setIsLoading(false);
               const data = res.data.data;
               navigate(
-                `flights?flyFrom=${departure}&flyTo=${destination}&startDate=${startDate}&endDate=${endDate}&day=${parseInt(
+                `/flights?flyFrom=${departure}&flyTo=${destination}&startDate=${startDate}&endDate=${endDate}&day=${parseInt(
                   day
                 )}&people=${parseInt(people)}`,
                 {
@@ -306,7 +305,7 @@ export default function SearchBar({
               setIsLoading && setIsLoading(false);
               console.log(err.code);
               navigate(
-                `flights?flyFrom=${departure}&flyTo=${destination}&startDate=${startDate}&endDate=${endDate}&day=${parseInt(
+                `/flights?flyFrom=${departure}&flyTo=${destination}&startDate=${startDate}&endDate=${endDate}&day=${parseInt(
                   day
                 )}&people=${parseInt(people)}`,
                 {
