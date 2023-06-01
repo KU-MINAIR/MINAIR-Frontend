@@ -91,6 +91,8 @@ export default function Search(): ReactElement {
               endDateP={state.endDate}
               dayP={state.day}
               peopleP={state.people}
+              isLoading={undefined}
+              setIsLoading={undefined}
             ></SearchBar>
           </SearchTab>
         </SearchBarWrapper>

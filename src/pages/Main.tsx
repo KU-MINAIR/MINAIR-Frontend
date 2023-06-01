@@ -2,10 +2,12 @@ import React, { useState, ReactElement, useEffect } from "react";
 import styled from "styled-components";
 import TopBar from "@/components/TopBar";
 import SearchBar from "@/components/SearchBar";
+import LoadingSpinner from "@/components/LoadingSpinner";
 import Bg from "@/assets/sky.jpg";
 import { DiAptana } from "react-icons/di";
 
 export default function Main(): ReactElement {
+  const [isLoading, setIsLoading] = useState(false);
   return (
     <Wrapper>
       <TopBar />
@@ -22,6 +24,8 @@ export default function Main(): ReactElement {
             endDateP={""}
             dayP={"선택"}
             peopleP={"선택"}
+            isLoading={isLoading}
+            setIsLoading={setIsLoading}
           ></SearchBar>
         </SearchTab>
       </MainBody>
@@ -32,6 +36,7 @@ export default function Main(): ReactElement {
         </FooterLeft>
         <FooterRight>도움말</FooterRight>
       </Footer>
+      {isLoading ? <LoadingSpinner /> : null}
     </Wrapper>
   );
 }

@@ -10,6 +10,7 @@ import VerticalLine from "@/components/VerticalLine";
 import axios, { AxiosResponse } from "axios";
 import { useNavigate } from "react-router-dom";
 
+
 interface SearchBarProps {
   height: string;
   departureP: string;
@@ -18,6 +19,8 @@ interface SearchBarProps {
   endDateP: string;
   dayP: string;
   peopleP: string;
+  isLoading: boolean | undefined;
+  setIsLoading: Function | undefined;
 }
 interface WidthProps {
   height: string;
@@ -31,6 +34,8 @@ export default function SearchBar({
   endDateP,
   dayP,
   peopleP,
+  isLoading,
+  setIsLoading,
 }: SearchBarProps): ReactElement {
   let navigate = useNavigate();
 
@@ -249,6 +254,7 @@ export default function SearchBar({
               day
             )}\npeople=${parseInt(people)}`
           );
+          setIsLoading && setIsLoading(true);
           axios
             .get(
               `/api/flights?flyFrom=${departure}&flyTo=${destination}&startDate=${startDate}&endDate=${endDate}&day=${parseInt(
@@ -265,6 +271,7 @@ export default function SearchBar({
               }
             )
             .then((res) => {
+              setIsLoading && setIsLoading(false);
               const data = res.data.data;
               navigate(
                 `flights?flyFrom=${departure}&flyTo=${destination}&startDate=${startDate}&endDate=${endDate}&day=${parseInt(
@@ -296,6 +303,7 @@ export default function SearchBar({
               );
             })
             .catch((err) => {
+              setIsLoading && setIsLoading(false);
               console.log(err.code);
               navigate(
                 `flights?flyFrom=${departure}&flyTo=${destination}&startDate=${startDate}&endDate=${endDate}&day=${parseInt(
