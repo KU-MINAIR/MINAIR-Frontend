@@ -5,14 +5,40 @@ import SearchBar from "@/components/SearchBar";
 import VerticalLine from "@/components/VerticalLine";
 import { useLocation } from "react-router-dom";
 import { WiDaySunny, WiCloudy, WiHail } from "react-icons/wi";
+import axios, { AxiosResponse } from "axios";
 
 interface RouteState {
   state: any;
 }
+
 export default function Search(): ReactElement {
   const state = (useLocation() as RouteState).state;
-  const ticketArr = state.data;
-  const renderTickets = () => {
+  const [similarTicketArr, setSimilarTicketArr] = useState([]);
+  useEffect(() => {
+    axios
+      .get(
+        `/api/flights?flyFrom=${state.departure}&flyTo=${
+          state.destination
+        }&startDate=${state.startDate}&endDate=${state.endDate}&day=${parseInt(
+          state.day
+        )}&people=${parseInt(state.people)}`,
+        // `/api/flights?flyFrom=인천&flyTo=오키나와&startDate=25/06/2023&endDate=25/09/2023&people=1&day=5`,
+        // `/api/cities`,
+        {
+          withCredentials: true,
+          headers: {
+            "Content-Type": `application/json`,
+            "ngrok-skip-browser-warning": "69420",
+          },
+        }
+      )
+      .then((res) => {
+        setSimilarTicketArr(res.data.data);
+      });
+  }, [similarTicketArr]);
+
+  const renderTickets = (ticketArr: any) => {
+    console.log(typeof ticketArr);
     return (
       <>
         {ticketArr &&
@@ -72,11 +98,12 @@ export default function Search(): ReactElement {
       <BodayWrapper>
         <Section>
           <SectionTitle>최저가</SectionTitle>
-          <ListContainer>{renderTickets()}</ListContainer>
+          <ListContainer>{renderTickets(state.data)}</ListContainer>
         </Section>
         <VerticalLine height={"calc(90vh - 50px)"} color={"#d9d9d9"} />
         <Section>
           <SectionTitle>유사 여행지</SectionTitle>
+          <ListContainer>{renderTickets(similarTicketArr)}</ListContainer>
         </Section>
       </BodayWrapper>
     </>
