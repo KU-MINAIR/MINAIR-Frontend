@@ -11,8 +11,7 @@ interface RouteState {
 }
 export default function Search(): ReactElement {
   const state = (useLocation() as RouteState).state;
-  const ticketArr = state.mockData;
-  console.log(useLocation());
+  const ticketArr = state.data;
   const renderTickets = () => {
     return (
       <>
@@ -88,6 +87,7 @@ const SearchBarWrapper = styled.div`
   flex: 1;
   display: flex;
   justify-content: center;
+  z-index: 10;
 `;
 
 const SearchTab = styled.div`
@@ -95,6 +95,7 @@ const SearchTab = styled.div`
   flex-direction: column;
   position: relative;
   top: 0;
+  z-index: 10;
 `;
 
 const BodayWrapper = styled.div`
@@ -127,6 +128,7 @@ const ListContainer = styled.div`
   height: 90%;
   overflow-y: auto;
   overflow-x: hidden;
+
   &::-webkit-scrollbar {
     width: 6px;
     background-color: #edece9;
@@ -146,6 +148,7 @@ const TicketWrapper = styled.div`
   backdrop-filter: blur(2px);
   border-radius: 10px;
   border: 1px solid #d9d9d9;
+  z-index: 0;
 
   margin-bottom: 20px;
   padding: 0 20px;

@@ -33,6 +33,7 @@ const Wrapper = styled.div`
   align-items: center;
   top: 0;
   background-color: white;
+  z-index: 10;
 `;
 
 const Logo = styled.div`

@@ -87,7 +87,7 @@ const Footer = styled.div`
   position: fixed;
   display: flex;
   justify-content: space-between;
-  background-color: rgba(0, 0, 0, 0.2);
+
   width: 100%;
   bottom: 0;
   width: 100%;

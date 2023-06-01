@@ -265,12 +265,21 @@ export default function SearchBar({
               }
             )
             .then((res) => {
+              const data = res.data.data;
               navigate(
                 `flights?flyFrom=${departure}&flyTo=${destination}&startDate=${startDate}&endDate=${endDate}&day=${parseInt(
                   day
                 )}&people=${parseInt(people)}`,
                 {
-                  state: res.data.data,
+                  state: {
+                    data,
+                    departure,
+                    destination,
+                    startDate,
+                    endDate,
+                    day,
+                    people,
+                  },
                   // setDeparture: setDepartureFunc,
                   // setDestination: setDestinationFunc,
                   // setStartDate: setStartDateFunc,
@@ -320,6 +329,7 @@ const Wrapper = styled.div<WidthProps>`
   background-color: white;
   border-radius: 30px;
   padding-left: 10px;
+  z-index: 10;
 `;
 
 const City = styled.div`
