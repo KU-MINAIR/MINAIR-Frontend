@@ -4,6 +4,7 @@ import TopBar from "@/components/TopBar";
 import SearchBar from "@/components/SearchBar";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import VerticalLine from "@/components/VerticalLine";
+import Skeleton from "@/components/Skeleton";
 import { useLocation } from "react-router-dom";
 import { WiDaySunny, WiCloudy, WiHail } from "react-icons/wi";
 import axios, { AxiosResponse } from "axios";
@@ -19,8 +20,10 @@ export default function Search(): ReactElement {
   const state = (useLocation() as RouteState).state;
   const [similarTicketArr, setSimilarTicketArr] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isSkeleton, setIsSkeleton] = useState(true);
   useEffect(() => {
     console.log("유사 여행지 요청");
+    setIsSkeleton(true);
     setSimilarTicketArr([]);
     axios
       .get(
@@ -39,12 +42,12 @@ export default function Search(): ReactElement {
       )
       .then((res) => {
         setSimilarTicketArr(res.data.data);
+        setIsSkeleton(false);
       });
   }, [state.data]);
 
   const renderTickets = (data: any, flag: number) => {
     if (!data) return;
-
     return (
       <>
         {data.flights &&
@@ -138,10 +141,26 @@ export default function Search(): ReactElement {
           <SectionTitle>여긴 어떤가요?</SectionTitle>
           <ListContainerBox>
             <ListContainer height={"360px"}>
-              {renderTickets(similarTicketArr[0], 1)}
+              {isSkeleton ? (
+                <>
+                  <Skeleton />
+                  <Skeleton />
+                  <Skeleton />
+                </>
+              ) : (
+                renderTickets(similarTicketArr[0], 1)
+              )}
             </ListContainer>
             <ListContainer height={"360px"}>
-              {renderTickets(similarTicketArr[1], 1)}
+              {isSkeleton ? (
+                <>
+                  <Skeleton />
+                  <Skeleton />
+                  <Skeleton />
+                </>
+              ) : (
+                renderTickets(similarTicketArr[1], 1)
+              )}
             </ListContainer>
           </ListContainerBox>
         </Section>
