@@ -66,10 +66,11 @@ export default function CityModal({
     return (
       <>
         {cityArr &&
-          cityArr.map((e: any) => {
+          cityArr.map((e: any, idx: number) => {
             // return <div>{e.country}</div>;
             return (
               <CityWrapper
+                key={idx}
                 onClick={(e2) => {
                   setCity(e.name);
                 }}

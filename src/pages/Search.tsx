@@ -16,28 +16,26 @@ export default function Search(): ReactElement {
   const state = (useLocation() as RouteState).state;
   const [similarTicketArr, setSimilarTicketArr] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  useEffect(() => {
-    axios
-      .get(
-        `/api/flights?flyFrom=${state.departure}&flyTo=${
-          state.destination
-        }&startDate=${state.startDate}&endDate=${state.endDate}&day=${parseInt(
-          state.day
-        )}&people=${parseInt(state.people)}`,
-        // `/api/flights?flyFrom=인천&flyTo=오키나와&startDate=25/06/2023&endDate=25/09/2023&people=1&day=5`,
-        // `/api/cities`,
-        {
-          withCredentials: true,
-          headers: {
-            "Content-Type": `application/json`,
-            "ngrok-skip-browser-warning": "69420",
-          },
-        }
-      )
-      .then((res) => {
-        setSimilarTicketArr(res.data.data);
-      });
-  }, [similarTicketArr]);
+  // useEffect(() => {
+  //   axios
+  //     .get(
+  //       `/api/similar-flights?flyFrom=${state.departure}&flyTo=${
+  //         state.destination
+  //       }&startDate=${state.startDate}&endDate=${state.endDate}&day=${parseInt(
+  //         state.day
+  //       )}&people=${parseInt(state.people)}`,
+  //       {
+  //         withCredentials: true,
+  //         headers: {
+  //           "Content-Type": `application/json`,
+  //           "ngrok-skip-browser-warning": "69420",
+  //         },
+  //       }
+  //     )
+  //     .then((res) => {
+  //       setSimilarTicketArr(res.data.data);
+  //     });
+  // }, [similarTicketArr]);
 
   const renderTickets = (ticketArr: any) => {
     console.log(typeof ticketArr);
