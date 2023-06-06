@@ -8,6 +8,9 @@ import { useLocation } from "react-router-dom";
 import { WiDaySunny, WiCloudy, WiHail } from "react-icons/wi";
 import axios, { AxiosResponse } from "axios";
 
+interface ListContainerProps {
+  height: string;
+}
 interface RouteState {
   state: any;
 }
@@ -16,39 +19,63 @@ export default function Search(): ReactElement {
   const state = (useLocation() as RouteState).state;
   const [similarTicketArr, setSimilarTicketArr] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  // useEffect(() => {
-  //   axios
-  //     .get(
-  //       `/api/similar-flights?flyFrom=${state.departure}&flyTo=${
-  //         state.destination
-  //       }&startDate=${state.startDate}&endDate=${state.endDate}&day=${parseInt(
-  //         state.day
-  //       )}&people=${parseInt(state.people)}`,
-  //       {
-  //         withCredentials: true,
-  //         headers: {
-  //           "Content-Type": `application/json`,
-  //           "ngrok-skip-browser-warning": "69420",
-  //         },
-  //       }
-  //     )
-  //     .then((res) => {
-  //       setSimilarTicketArr(res.data.data);
-  //     });
-  // }, [similarTicketArr]);
+  useEffect(() => {
+    console.log("유사 여행지 요청");
+    setSimilarTicketArr([]);
+    axios
+      .get(
+        `/api/similar-flights?flyFrom=${state.departure}&flyTo=${
+          state.destination
+        }&startDate=${state.startDate}&endDate=${state.endDate}&day=${parseInt(
+          state.day
+        )}&people=${parseInt(state.people)}`,
+        {
+          withCredentials: true,
+          headers: {
+            "Content-Type": `application/json`,
+            "ngrok-skip-browser-warning": "69420",
+          },
+        }
+      )
+      .then((res) => {
+        setSimilarTicketArr(res.data.data);
+      });
+  }, [state.data]);
 
-  const renderTickets = (ticketArr: any) => {
-    console.log(typeof ticketArr);
+  const renderTickets = (data: any, flag: number) => {
+    if (!data) return;
+
     return (
       <>
-        {ticketArr &&
-          ticketArr?.map((e: any, idx: number) => {
+        {data.flights &&
+          data.flights.map((e: any, idx: number) => {
             // return <div>{e.country}</div>;
             return (
-              <TicketWrapper onClick={(e2) => {}}>
+              <TicketWrapper
+                onClick={(e2) => {
+                  if (flag == 1) {
+                    console.log("가중치 갱신");
+                    axios
+                      .patch(
+                        `/api/cities/${state.data.cityId}/target-cities/${data.cityId}`,
+                        {
+                          withCredentials: true,
+                          headers: {
+                            "Content-Type": `application/json`,
+                            "ngrok-skip-browser-warning": "69420",
+                          },
+                        }
+                      )
+                      .then((res) => {
+                        console.log(res);
+                      })
+                      .catch((e) => console.log(e));
+                  }
+                }}
+              >
                 <ContentWrapper>
                   <CityName>
-                    {e.cityName}, {e.countryName}
+                    {data.cityName}, {data.countryName}
                   </CityName>
                   <Date>
                     {e.startDate.split("-").join(".")} -{" "}
@@ -100,12 +127,23 @@ export default function Search(): ReactElement {
       <BodyWrapper>
         <Section>
           <SectionTitle>최저가</SectionTitle>
-          <ListContainer>{renderTickets(state.data)}</ListContainer>
+          <ListContainerBox>
+            <ListContainer height={"100%"}>
+              {renderTickets(state.data, 0)}
+            </ListContainer>
+          </ListContainerBox>
         </Section>
         <VerticalLine height={"calc(90vh - 50px)"} color={"#d9d9d9"} />
         <Section>
-          <SectionTitle>유사 여행지</SectionTitle>
-          <ListContainer>{renderTickets(similarTicketArr)}</ListContainer>
+          <SectionTitle>여긴 어떤가요?</SectionTitle>
+          <ListContainerBox>
+            <ListContainer height={"360px"}>
+              {renderTickets(similarTicketArr[0], 1)}
+            </ListContainer>
+            <ListContainer height={"360px"}>
+              {renderTickets(similarTicketArr[1], 1)}
+            </ListContainer>
+          </ListContainerBox>
         </Section>
       </BodyWrapper>
       {isLoading ? <LoadingSpinner /> : null}
@@ -150,18 +188,18 @@ const SectionTitle = styled.div`
   font-weight: bold;
 `;
 
-const ListContainer = styled.div`
+const ListContainer = styled.div<ListContainerProps>`
   margin-top: 20px;
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 90%;
+  height: ${(props) => props.height};
   overflow-y: auto;
   overflow-x: hidden;
 
   &::-webkit-scrollbar {
     width: 6px;
-    background-color: #edece9;
+    /* background-color: #edece9; */
   }
   &::-webkit-scrollbar-thumb {
     background: #d3d1cb;
@@ -170,6 +208,7 @@ const ListContainer = styled.div`
 `;
 
 const TicketWrapper = styled.div`
+  cursor: pointer;
   align-items: center;
   display: flex;
   width: 100%;
@@ -233,4 +272,18 @@ const RightContent = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
+`;
+
+const ListContainerBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 94%;
+`;
+
+const HorizontalLine = styled.div`
+  width: 90%;
+  height: 1px;
+  background-color: red;
 `;

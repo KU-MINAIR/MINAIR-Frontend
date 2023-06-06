@@ -270,7 +270,7 @@ export default function SearchBar({
               }
             )
             .then((res) => {
-              console.log("@@", res.data.data);
+              console.log("@@", res.data);
               setIsLoading && setIsLoading(false);
               const data = res.data.data;
               navigate(
