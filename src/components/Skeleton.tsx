@@ -51,6 +51,7 @@ const SkeletonWrapper = styled.div`
     left: 0;
     width: 100%;
     height: 100%;
+    border-radius: 10px;
     animation: skeleton-gradient 1.5s infinite ease-in-out;
   }
 `;

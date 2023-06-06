@@ -74,6 +74,8 @@ export default function Search(): ReactElement {
                       })
                       .catch((e) => console.log(e));
                   }
+                  console.log(state.data);
+                  window.open(e.link);
                 }}
               >
                 <ContentWrapper>
@@ -140,28 +142,28 @@ export default function Search(): ReactElement {
         <Section>
           <SectionTitle>여긴 어떤가요?</SectionTitle>
           <ListContainerBox>
-            <ListContainer height={"360px"}>
-              {isSkeleton ? (
-                <>
-                  <Skeleton />
-                  <Skeleton />
-                  <Skeleton />
-                </>
-              ) : (
-                renderTickets(similarTicketArr[0], 1)
-              )}
-            </ListContainer>
-            <ListContainer height={"360px"}>
-              {isSkeleton ? (
-                <>
-                  <Skeleton />
-                  <Skeleton />
-                  <Skeleton />
-                </>
-              ) : (
-                renderTickets(similarTicketArr[1], 1)
-              )}
-            </ListContainer>
+            {isSkeleton ? (
+              <SkeletonListContainer height={"360px"}>
+                <Skeleton />
+                <Skeleton />
+                <Skeleton />
+              </SkeletonListContainer>
+            ) : (
+              <ListContainer height={"360px"}>
+                {renderTickets(similarTicketArr[0], 1)}
+              </ListContainer>
+            )}
+            {isSkeleton ? (
+              <SkeletonListContainer height={"360px"}>
+                <Skeleton />
+                <Skeleton />
+                <Skeleton />
+              </SkeletonListContainer>
+            ) : (
+              <ListContainer height={"360px"}>
+                {renderTickets(similarTicketArr[1], 1)}
+              </ListContainer>
+            )}
           </ListContainerBox>
         </Section>
       </BodyWrapper>
@@ -224,6 +226,16 @@ const ListContainer = styled.div<ListContainerProps>`
     background: #d3d1cb;
     border-radius: 6px;
   }
+`;
+
+const SkeletonListContainer = styled.div<ListContainerProps>`
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: ${(props) => props.height};
+  overflow-y: hidden;
+  overflow-x: hidden;
 `;
 
 const TicketWrapper = styled.div`
