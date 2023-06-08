@@ -35,7 +35,6 @@ export default function Search(): ReactElement {
   const bgArr = [Bg1, Bg2, Bg3, Bg4, Bg5, Bg6, Bg7];
   useEffect(() => {
     setBg(bgArr[Math.floor(Math.random() * 7)]);
-    console.log("유사 여행지 요청");
     setIsSkeleton(true);
     setSimilarTicketArr([]);
     axios
@@ -70,7 +69,6 @@ export default function Search(): ReactElement {
               <TicketWrapper
                 onClick={(e2) => {
                   if (flag == 1) {
-                    console.log("가중치 갱신");
                     axios
                       .patch(
                         `/api/cities/${state.data.cityId}/target-cities/${data.cityId}`,
@@ -87,7 +85,6 @@ export default function Search(): ReactElement {
                       })
                       .catch((e) => console.log(e));
                   }
-                  console.log(state.data);
                   window.open(e.link);
                 }}
               >
