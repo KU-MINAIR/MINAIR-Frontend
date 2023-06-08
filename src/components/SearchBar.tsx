@@ -248,19 +248,12 @@ export default function SearchBar({
       </Count>
       <SearchButton
         onClick={() => {
-          console.log(
-            `flyFrom=${departure}\nflyTo=${destination}\nstartDate=${startDate}\nendDate=${endDate}\nday=${parseInt(
-              day
-            )}\npeople=${parseInt(people)}`
-          );
           setIsLoading && setIsLoading(true);
           axios
             .get(
               `/api/flights?flyFrom=${departure}&flyTo=${destination}&startDate=${startDate}&endDate=${endDate}&day=${parseInt(
                 day
               )}&people=${parseInt(people)}`,
-              // `/api/flights?flyFrom=인천&flyTo=오키나와&startDate=25/06/2023&endDate=25/09/2023&people=1&day=5`,
-              // `/api/cities`,
               {
                 withCredentials: true,
                 headers: {
@@ -270,7 +263,6 @@ export default function SearchBar({
               }
             )
             .then((res) => {
-              console.log("@@", res.data);
               setIsLoading && setIsLoading(false);
               const data = res.data.data;
               navigate(
@@ -287,40 +279,11 @@ export default function SearchBar({
                     day,
                     people,
                   },
-                  // setDeparture: setDepartureFunc,
-                  // setDestination: setDestinationFunc,
-                  // setStartDate: setStartDateFunc,
-                  // setEndDate: setEndDateFunc,
-                  // setDay: setDayFunc,
-                  // setPeople: setPeopleFunc,
-                  // departure,
-                  // destination,
-                  // startDate,
-                  // endDate,
-                  // day,
-                  // people,
                 }
               );
             })
             .catch((err) => {
-              setIsLoading && setIsLoading(false);
               console.log(err.code);
-              navigate(
-                `/flights?flyFrom=${departure}&flyTo=${destination}&startDate=${startDate}&endDate=${endDate}&day=${parseInt(
-                  day
-                )}&people=${parseInt(people)}`,
-                {
-                  state: {
-                    mockData,
-                    departure,
-                    destination,
-                    startDate,
-                    endDate,
-                    day,
-                    people,
-                  },
-                }
-              );
             });
         }}
       />
