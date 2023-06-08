@@ -300,7 +300,7 @@ const Wrapper = styled.div<WidthProps>`
   background-color: white;
   border-radius: 30px;
   padding-left: 10px;
-  z-index: 10;
+  z-index: 30;
 `;
 
 const City = styled.div`

@@ -187,7 +187,7 @@ const SearchBarWrapper = styled.div`
   flex: 1;
   display: flex;
   justify-content: center;
-  z-index: 10;
+  z-index: 30;
 `;
 
 const SearchTab = styled.div`
@@ -195,7 +195,7 @@ const SearchTab = styled.div`
   flex-direction: column;
   position: relative;
   top: 0;
-  z-index: 10;
+  z-index: 30;
 `;
 
 const BodyWrapper = styled.div<BackgroundImageProps>`
@@ -219,7 +219,6 @@ const Section = styled.div`
   padding: 40px;
   display: flex;
   flex-direction: column;
-  z-index: 10;
 `;
 
 const SectionTitle = styled.div`
@@ -229,7 +228,6 @@ const SectionTitle = styled.div`
   color: white;
   font-family: "KoHoRegular";
   font-weight: 500;
-  z-index: 10;
 `;
 
 const ListContainer = styled.div<ListContainerProps>`
@@ -240,7 +238,6 @@ const ListContainer = styled.div<ListContainerProps>`
   height: ${(props) => props.height};
   overflow-y: auto;
   overflow-x: hidden;
-  z-index: 10;
 
   &::-webkit-scrollbar {
     width: 6px;
@@ -261,7 +258,6 @@ const SkeletonListContainer = styled.div<ListContainerProps>`
   height: ${(props) => props.height};
   overflow-y: hidden;
   overflow-x: hidden;
-  z-index: 10;
 `;
 
 const TicketWrapper = styled.div`
@@ -275,7 +271,6 @@ const TicketWrapper = styled.div`
   backdrop-filter: blur(2px);
   border-radius: 10px;
   border: 1px solid #d9d9d9;
-  z-index: 10;
 
   margin-bottom: 20px;
   padding: 0 20px;
@@ -290,14 +285,12 @@ const ContentWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   height: 100px;
-  z-index: 10;
 `;
 const CityName = styled.div`
   font-weight: bold;
   font-size: 18px;
   margin-bottom: 2px;
   overflow: hidden;
-  z-index: 10;
 `;
 
 const CountryName = styled.div`
@@ -309,19 +302,16 @@ const CountryName = styled.div`
 
 const Date = styled.div`
   font-size: 12px;
-  z-index: 10;
 `;
 
 const WeatherWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  z-index: 10;
 `;
 const AverageTemperature = styled.div`
   font-size: 14px;
   margin-top: -6px;
-  z-index: 10;
 `;
 const Weather = styled.div``;
 
@@ -329,14 +319,12 @@ const Price = styled.div`
   font-weight: bold;
   font-size: 20px;
   margin-left: 48px;
-  z-index: 10;
 `;
 
 const RightContent = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  z-index: 10;
 `;
 
 const ListContainerBox = styled.div`
@@ -345,7 +333,6 @@ const ListContainerBox = styled.div`
   justify-content: space-between;
   align-items: center;
   height: 94%;
-  z-index: 10;
 `;
 
 const HorizontalLine = styled.div`
