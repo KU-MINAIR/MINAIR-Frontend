@@ -1,6 +1,8 @@
 import { createGlobalStyle } from 'styled-components';
 import KoHoRegular from "@/fonts/KoHo-Regular.ttf"
 import OswaldVariableFont from "@/fonts/Oswald-VariableFont_wght.ttf"
+import BMHANNAPro from "@/fonts/BMHANNAPro.ttf"
+import Pretendard from "@/fonts/Pretendard.ttf"
 
 const GlobalStyle = createGlobalStyle`
 
@@ -16,8 +18,29 @@ const GlobalStyle = createGlobalStyle`
 	src: url(${OswaldVariableFont});
 }
 
+@font-face {
+	font-family: 'Oswald';
+	src: local('OswaldVariableFont'), local('OswaldVariableFont');
+	font-style: normal;
+	src: url(${OswaldVariableFont}) format('truetype');
+}
+
+@font-face {
+	font-family: 'BMHANNAPro';
+	src: local('BMHANNAPro'), local('BMHANNAPro');
+	font-style: normal;
+	src: url(${BMHANNAPro}) format('truetype');
+}
+
+@font-face {
+	font-family: 'Pretendard';
+	src: local('Pretendard'), local('Pretendard');
+	font-style: normal;
+	src: url(${Pretendard}) format('truetype');
+}
 *{
   box-sizing:border-box;
+	font-family: "Pretendard";
 }
 p,
 h1,

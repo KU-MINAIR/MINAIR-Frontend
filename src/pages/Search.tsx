@@ -8,7 +8,17 @@ import Skeleton from "@/components/Skeleton";
 import { useLocation } from "react-router-dom";
 import { WiDaySunny, WiCloudy, WiHail } from "react-icons/wi";
 import axios, { AxiosResponse } from "axios";
+import Bg1 from "@/assets/background/bg1.jpg";
+import Bg2 from "@/assets/background/bg2.jpg";
+import Bg3 from "@/assets/background/bg3.jpg";
+import Bg4 from "@/assets/background/bg4.jpg";
+import Bg5 from "@/assets/background/bg5.jpg";
+import Bg6 from "@/assets/background/bg6.jpg";
+import Bg7 from "@/assets/background/bg7.jpg";
 
+interface BackgroundImageProps {
+  src: any;
+}
 interface ListContainerProps {
   height: string;
 }
@@ -21,7 +31,10 @@ export default function Search(): ReactElement {
   const [similarTicketArr, setSimilarTicketArr] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isSkeleton, setIsSkeleton] = useState(true);
+  const [bg, setBg] = useState("");
+  const bgArr = [Bg1, Bg2, Bg3, Bg4, Bg5, Bg6, Bg7];
   useEffect(() => {
+    setBg(bgArr[Math.floor(Math.random() * 7)]);
     console.log("유사 여행지 요청");
     setIsSkeleton(true);
     setSimilarTicketArr([]);
@@ -129,18 +142,19 @@ export default function Search(): ReactElement {
           </SearchTab>
         </SearchBarWrapper>
       </TopBar>
-      <BodyWrapper>
+      <Dimmed></Dimmed>
+      <BodyWrapper src={bg}>
         <Section>
-          <SectionTitle>최저가</SectionTitle>
+          <SectionTitle>cheapest day !</SectionTitle>
           <ListContainerBox>
             <ListContainer height={"100%"}>
               {renderTickets(state.data, 0)}
             </ListContainer>
           </ListContainerBox>
         </Section>
-        <VerticalLine height={"calc(90vh - 50px)"} color={"#d9d9d9"} />
+        {/* <VerticalLine height={"calc(90vh - 50px)"} color={"#d9d9d9"} /> */}
         <Section>
-          <SectionTitle>여긴 어떤가요?</SectionTitle>
+          <SectionTitle>how about ...</SectionTitle>
           <ListContainerBox>
             {isSkeleton ? (
               <SkeletonListContainer height={"360px"}>
@@ -187,13 +201,19 @@ const SearchTab = styled.div`
   z-index: 10;
 `;
 
-const BodyWrapper = styled.div`
-  background-color: #f6f8fe;
+const BodyWrapper = styled.div<BackgroundImageProps>`
+  width: 100%;
+  height: 100%;
+  background-image: url(${(props) => props.src});
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
   margin-top: 50px;
   height: calc(100vh - 50px);
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: -3;
 `;
 
 const Section = styled.div`
@@ -202,11 +222,17 @@ const Section = styled.div`
   padding: 40px;
   display: flex;
   flex-direction: column;
+  z-index: 10;
 `;
 
 const SectionTitle = styled.div`
-  font-size: 28px;
-  font-weight: bold;
+  margin-left: 4px;
+  font-size: 30px;
+  z-index: 10;
+  color: white;
+  font-family: "KoHoRegular";
+  font-weight: 500;
+  z-index: 10;
 `;
 
 const ListContainer = styled.div<ListContainerProps>`
@@ -217,18 +243,20 @@ const ListContainer = styled.div<ListContainerProps>`
   height: ${(props) => props.height};
   overflow-y: auto;
   overflow-x: hidden;
+  z-index: 10;
 
   &::-webkit-scrollbar {
     width: 6px;
     /* background-color: #edece9; */
   }
   &::-webkit-scrollbar-thumb {
-    background: #d3d1cb;
+    background: #d3d1cbb9;
     border-radius: 6px;
   }
 `;
 
 const SkeletonListContainer = styled.div<ListContainerProps>`
+  opacity: 0.9;
   margin-top: 20px;
   display: flex;
   flex-direction: column;
@@ -236,9 +264,11 @@ const SkeletonListContainer = styled.div<ListContainerProps>`
   height: ${(props) => props.height};
   overflow-y: hidden;
   overflow-x: hidden;
+  z-index: 10;
 `;
 
 const TicketWrapper = styled.div`
+  opacity: 0.9;
   cursor: pointer;
   align-items: center;
   display: flex;
@@ -248,7 +278,7 @@ const TicketWrapper = styled.div`
   backdrop-filter: blur(2px);
   border-radius: 10px;
   border: 1px solid #d9d9d9;
-  z-index: 0;
+  z-index: 10;
 
   margin-bottom: 20px;
   padding: 0 20px;
@@ -263,12 +293,14 @@ const ContentWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   height: 100px;
+  z-index: 10;
 `;
 const CityName = styled.div`
   font-weight: bold;
   font-size: 18px;
   margin-bottom: 2px;
   overflow: hidden;
+  z-index: 10;
 `;
 
 const CountryName = styled.div`
@@ -280,29 +312,34 @@ const CountryName = styled.div`
 
 const Date = styled.div`
   font-size: 12px;
+  z-index: 10;
 `;
 
 const WeatherWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  z-index: 10;
 `;
 const AverageTemperature = styled.div`
   font-size: 14px;
   margin-top: -6px;
+  z-index: 10;
 `;
 const Weather = styled.div``;
 
 const Price = styled.div`
   font-weight: bold;
   font-size: 20px;
-  margin-left: 40px;
+  margin-left: 48px;
+  z-index: 10;
 `;
 
 const RightContent = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  z-index: 10;
 `;
 
 const ListContainerBox = styled.div`
@@ -311,10 +348,20 @@ const ListContainerBox = styled.div`
   justify-content: space-between;
   align-items: center;
   height: 94%;
+  z-index: 10;
 `;
 
 const HorizontalLine = styled.div`
   width: 90%;
   height: 1px;
   background-color: red;
+`;
+
+const Dimmed = styled.div`
+  position: absolute;
+  top: 50px;
+  width: 100%;
+  height: calc(100% - 50px);
+  /* background-color: rgba(256, 256, 256, 0.2); */
+  background-color: rgba(0, 0, 0, 0.2);
 `;

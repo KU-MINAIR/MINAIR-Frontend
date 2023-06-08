@@ -37,7 +37,7 @@ const SkeletonWrapper = styled.div`
       background-color: rgba(165, 165, 165, 0);
     }
     50% {
-      background-color: rgba(165, 165, 165, 0.2);
+      background-color: rgba(165, 165, 165, 0.35);
     }
     100% {
       background-color: rgba(165, 165, 165, 0);
